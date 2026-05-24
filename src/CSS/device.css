@@ -1,0 +1,9 @@
+.device-name {
+  cursor: pointer;
+}
+
+.device-info {
+  background-color: rgb(8, 133, 133);
+  border: solid 3px rgba(0, 255, 255, 0.856);
+  border-radius: 5px;
+}
