@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
+import { io } from "socket.io-client";
 import Header from "./Components/Header.tsx";
 import Device from './Components/Device.tsx';
+import type { DeviceData } from "../types/DeviceData";
 
 function App() {
-  const [connectedDevices, setConnectedDevices] = useState<number[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchDevices = async () => {
-    try{
-      setConnectedDevices([1,2,3]);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [connectedDevices, setConnectedDevices] = useState<DeviceData[]>([]);
 
   useEffect(() => {
-    fetchDevices();
+    const socket = io("http://localhost:4000");
+
+     socket.on("devices", (data: DeviceData[]) => {
+      setConnectedDevices(data);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
@@ -25,12 +24,8 @@ function App() {
       <Header />
       <div className="container p-3">
         <h1 className="pb-2">Connected devices</h1>
-        {loading ? (
-          <div className="spinner-border spinner-color" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        ) : connectedDevices.map((device, index) => (
-          <Device key={index} device={device} deviceNr={index}/>
+        {connectedDevices.map((device, index) => (
+          <Device key={device.id} device={device}/>
         ))}
       </div>
     </>
