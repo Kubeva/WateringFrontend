@@ -14,6 +14,8 @@ type DeviceProps = {
 function Device({ device }: DeviceProps) {
     const [opened, setOpened] = useState(true);
 
+    const openTime = 10000;
+
     async function openValve() {
         await fetch(`http://localhost:4000/devices/${device.id}/valve/open`, {
             method: "POST",
@@ -21,7 +23,7 @@ function Device({ device }: DeviceProps) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                valveTime: 30000,
+                valveTime: openTime,
             }),
         });
     }
@@ -56,7 +58,7 @@ function Device({ device }: DeviceProps) {
 
                     <div className="d-flex gap-2">
                         <button onClick={openValve}>
-                            Open for 1s
+                            Open for {openTime / 1000}s
                         </button>
 
                         <button onClick={closeValve}>
