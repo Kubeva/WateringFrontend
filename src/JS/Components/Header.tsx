@@ -1,15 +1,14 @@
-import { Container, Navbar } from "react-bootstrap";
-import '../../CSS/header.css';
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
 
 function Header() {
   return (
-  <Navbar className="header" expand="lg">
-    <Container>
-      <Navbar.Brand className="nav-link">Watering</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    </Container>
-  </Navbar>
-  )
+    <Navbar bg="body-tertiary" expand="lg" className="border-bottom">
+      <Container>
+        <Navbar.Brand className="fw-semibold">Wodolejstwo 3000</Navbar.Brand>
+      </Container>
+    </Navbar>
+  );
 }
 
 export default Header;

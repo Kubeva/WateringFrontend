@@ -1,3 +1,19 @@
+export type MeasurementPoint = {
+  time: string;
+  humidity: number;
+  lum: number;
+};
+
+export type HumidityExtreme = {
+  value: number;
+  time: string;
+};
+
+export type HumidityStats = {
+  highest: HumidityExtreme | null;
+  lowest: HumidityExtreme | null;
+};
+
 export type DeviceData = {
   id: number;
 
@@ -14,4 +30,7 @@ export type DeviceData = {
   requestedValveOpen?: boolean;
   requestedValveTime?: number;
   lastCommandAt?: string;
+
+  history: MeasurementPoint[];
+  humidityStats: HumidityStats;
 };
